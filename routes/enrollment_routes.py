@@ -37,3 +37,11 @@ def mark_completion(enrollment_id: str):
     if not enrollment:
         raise HTTPException(status_code=404, detail="Enrollment not found")
     return enrollment
+
+ 
+@router.get("/course/{course_id}/users", response_model=List[dict])
+def get_users_enrolled_in_course(course_id: str):
+    users = enrollment_service.get_users_enrolled_in_course(course_id)
+    if not users:
+        raise HTTPException(status_code=404, detail="No users found for this course")
+    return users

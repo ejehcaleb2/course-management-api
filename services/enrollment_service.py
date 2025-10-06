@@ -21,7 +21,7 @@ def enroll_user(enrollment_data: EnrollmentCreate) -> Enrollment:
     if not user:
         raise ValueError("User not found")
     if not user.is_active:
-        raise ValueError("User is no1t active")
+        raise ValueError("User is not active")
 
     # Check course exists and is open
     course = get_course(enrollment_data.course_id)
@@ -61,3 +61,21 @@ def get_enrollment(enrollment_id: str):
         if enrollment.id == enrollment_id:
             return enrollment
     return None
+
+# 
+def get_users_enrolled_in_course(course_id: str):
+    """Return details of all users enrolled in a specific course."""
+    enrolled_users = []
+    for enrollment in enrollments_db:
+        if enrollment.course_id == course_id:
+            user = get_user(enrollment.user_id)
+            if user:
+                enrolled_users.append({
+                    "user_id": user.id,
+                    "name": user.name,
+                    "email": user.email,
+                    "is_active": user.is_active,
+                    "enrollment_id": enrollment.id,
+                    "completed": enrollment.completed
+                })
+    return enrolled_users
