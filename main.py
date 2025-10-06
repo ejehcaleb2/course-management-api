@@ -9,4 +9,4 @@ app.include_router(enrollment_routes.router)
 
 @app.get("/")
 def read_root():
-    return {"message": "Course Management API is running!"}
+    return {"message": "Ejeh Caleb"}

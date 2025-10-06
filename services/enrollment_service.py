@@ -21,7 +21,7 @@ def enroll_user(enrollment_data: EnrollmentCreate) -> Enrollment:
     if not user:
         raise ValueError("User not found")
     if not user.is_active:
-        raise ValueError("User is not active")
+        raise ValueError("User is no1t active")
 
     # Check course exists and is open
     course = get_course(enrollment_data.course_id)
